@@ -1,0 +1,22 @@
+version: '2'
+volumes:
+  wp-db:
+services:
+  wordpress:
+    image: wordpress
+    volumes:
+      - ./:/var/www/html/wp-content/plugins/wordpress-menu-rest:delegated
+      - wp-uploads:/var/www/html/wp-content/uploads
+    links:
+      - mysql
+    environment:
+      - WORDPRESS_DB_PASSWORD=secret
+    ports:
+      - "8080:80"
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - wp-db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=database
