@@ -6,12 +6,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Archive Release
-        uses: montudor/action-zip@v0.1.0
-        with:
-          args: zip -qq -r ./wordpress-menu-rest.zip ./
-      - uses: actions/upload-artifact@master
-        with:
-          name: wordpress-menu-rest
-          path: wordpress-menu-rest-zip
+    - uses: actions/checkout@v1
+    - name: Create Release Folder
+      run: rsync -arv --exclude='.git/' --exclude='.github/' --exclude='.gitignore' . ./release
+
+    - name: Switch to Release Folder
+      run: |
+        cd release
+        ls -la
+
+    - name: Bump version and push tag
+      uses: anothrNick/github-tag-action@1.17.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
