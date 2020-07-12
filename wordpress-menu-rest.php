@@ -2,7 +2,7 @@
 /*
 Plugin Name: Wordpress Menu Rest
 Plugin URI:
-Description:
+Description: Exposes the wordpress menu through the rest api
 Author: Hampus Backman
 Version: 1.0
 Author URI: http://hbackman.se
